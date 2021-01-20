@@ -8,12 +8,6 @@ const app = express();
 
 const apiRoutes = require('./routes/apiRoutes');
 
-
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static("public"));
-
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/workout";
 
 mongoose.connect(MONGODB_URI, {
@@ -22,6 +16,9 @@ mongoose.connect(MONGODB_URI, {
   useCreateIndex: true,
   useNewUrlParser: true
 });
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
 app.use(apiRoutes);
 app.get("/exercise", function (req, res) {
